@@ -30,7 +30,7 @@ interface ChainDict {
   [key: string]: string;
 }
 const chains: ChainDict = {
-  1000: 'https://api.avax-test.network/ext/bc/C/rpc',
+  43113: 'https://api.avax-test.network/ext/bc/C/rpc',
 };
 
 /*
@@ -54,7 +54,7 @@ interface ContractDict {
 }
 const contracts: ContractDict = Object.fromEntries(
   Object.entries({
-    1000: '0x0587CfC662555f0a01Ba07C6b44B73C88008309a',
+    43113: '0x0587CfC662555f0a01Ba07C6b44B73C88008309a',
   })
     .map(([id, addr]: [string, string]) =>
       [id, new ethers.Contract(addr, BaseTokenAbi, providers[id])])
@@ -75,7 +75,7 @@ interface DecoderDict {
   };
 }
 const decoders: DecoderDict = {
-  1000: {
+  43113: {
     // ExampleToken
     '0x64aB9B8647181dee1620A094F56cdafd98D84Cc7': {
       abi: ['string'],
@@ -112,6 +112,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ msg: 'method not allowed' })
+  }
+
   const { chainid, tokenid } = req.query as { chainid: string, tokenid: string };
 
   // apply cors
