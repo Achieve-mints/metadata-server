@@ -31,6 +31,7 @@ interface ChainDict {
 }
 const chains: ChainDict = {
   43113: 'https://api.avax-test.network/ext/bc/C/rpc',
+  10101: 'https://io-test.gogopool.com',
 };
 
 /*
@@ -55,6 +56,7 @@ interface ContractDict {
 const contracts: ContractDict = Object.fromEntries(
   Object.entries({
     43113: '0x0587CfC662555f0a01Ba07C6b44B73C88008309a',
+    10101: '0xf5443a26988dBe6Ab1b21FBE352B56717dAeB957',
   })
     .map(([id, addr]: [string, string]) =>
       [id, new ethers.Contract(addr, BaseTokenAbi, providers[id])])
@@ -85,6 +87,30 @@ const decoders: DecoderDict = {
         description: 'desc',
       }),
     },
+  },
+  10101: {
+    // AVAXSummit2023Token
+    '0x96491ca49D8275042E581Cbc043d29dd14Df54C2': {
+      abi: ['uint256'],
+      json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => {
+        const kind = decoded[0].toString();
+        console.log(decoded);
+        return {
+          name: `Scavenger hunt #${kind}`,
+          image: `https://achievemints-metadata-server.vercel.app/avaxsummit2023/${kind}.png`,
+          description: 'Scavenger hunt',
+        }
+      },
+    },
+    // AlphaTester
+    '0x985b62F52E7Fc4F48bbf4CDCbe4c472f4C72d29B': {
+      abi: [],
+      json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => ({
+        name: `Alpha Tester`,
+        image: `https://achievemints-metadata-server.vercel.app/alphatester/image.png`,
+        description: 'Alpha Tester',
+      }),
+    }
   }
 }
 
@@ -127,6 +153,9 @@ export default async function handler(
 
   try {
     const subtoken = await contracts[chainid]._tokenIdToSubtoken(tokenid);
+    if (subtoken === '0x0000000000000000000000000000000000000000') {
+      return res.status(404).json({msg: "tokenid or subtoken not found"});
+    }
     const metadata = await contracts[chainid].metadata(tokenid);
 
     const decoded = abiCoder.decode(decoders[chainid][subtoken].abi, metadata)
