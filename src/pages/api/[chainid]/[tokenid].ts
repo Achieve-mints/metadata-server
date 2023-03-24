@@ -31,7 +31,7 @@ interface ChainDict {
 }
 const chains: ChainDict = {
   43113: 'https://api.avax-test.network/ext/bc/C/rpc',
-  10101: 'https://io-test.gogopool.com',
+  10101: 'https://io1.gogopool.com',
 };
 
 /*
@@ -56,7 +56,7 @@ interface ContractDict {
 const contracts: ContractDict = Object.fromEntries(
   Object.entries({
     43113: '0x0587CfC662555f0a01Ba07C6b44B73C88008309a',
-    10101: '0xf5443a26988dBe6Ab1b21FBE352B56717dAeB957',
+    10101: '0xa6421E906a749B357Da4C10aEB0d8d588939862C',
   })
     .map(([id, addr]: [string, string]) =>
       [id, new ethers.Contract(addr, BaseTokenAbi, providers[id])])
@@ -90,6 +90,7 @@ const decoders: DecoderDict = {
   },
   10101: {
     // AVAXSummit2023Token
+    /*
     '0x96491ca49D8275042E581Cbc043d29dd14Df54C2': {
       abi: ['uint256'],
       json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => {
@@ -102,12 +103,13 @@ const decoders: DecoderDict = {
         }
       },
     },
+    */
     // AlphaTester
-    '0x985b62F52E7Fc4F48bbf4CDCbe4c472f4C72d29B': {
+    '0x8B9EA099bF837903d0456A0d8Ab118fC022B4382': {
       abi: [],
       json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => ({
         name: `Alpha Tester`,
-        image: `https://achievemints-metadata-server.vercel.app/alphatester/image.png`,
+        image: `https://metadata-server-three.vercel.app/alphatester/Badge.svg`,
         description: 'Alpha Tester',
       }),
     }
