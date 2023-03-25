@@ -105,7 +105,7 @@ const decoders: DecoderDict = {
     },
     */
     // AlphaTester
-    '0x8B9EA099bF837903d0456A0d8Ab118fC022B4382': {
+    '0x0a320D4828e3492BE966d9e7DFfBbDF7320d12b2': {
       abi: [],
       json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => ({
         name: `Alpha Tester`,
