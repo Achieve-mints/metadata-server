@@ -31,7 +31,7 @@ interface ChainDict {
 }
 const chains: ChainDict = {
   43113: 'https://api.avax-test.network/ext/bc/C/rpc',
-  10101: 'https://io1.gogopool.com',
+  10101: 'https://io.gogopool.com',
 };
 
 /*
