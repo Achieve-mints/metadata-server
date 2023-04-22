@@ -90,26 +90,24 @@ const decoders: DecoderDict = {
   },
   10101: {
     // AVAXSummit2023Token
-    /*
-    '0x96491ca49D8275042E581Cbc043d29dd14Df54C2': {
+    '0x7e20936d9ea7A10c65c09190fdc277811c0a2472': {
       abi: ['uint256'],
       json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => {
         const kind = decoded[0].toString();
         console.log(decoded);
         return {
-          name: `Scavenger hunt #${kind}`,
-          image: `https://achievemints-metadata-server.vercel.app/avaxsummit2023/${kind}.png`,
-          description: 'Scavenger hunt',
+          name: `Alice in Avaland #${kind}`,
+          image: `https://metadata.achievemint.io/avaxsummit2023/${kind}.png`,
+          description: 'Alice in Avaland',
         }
       },
     },
-    */
     // AlphaTester
     '0x0a320D4828e3492BE966d9e7DFfBbDF7320d12b2': {
       abi: [],
       json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => ({
         name: `Alpha Tester`,
-        image: `https://metadata-server-three.vercel.app/alphatester/Badge.svg`,
+        image: `https://metadata.achievemint.io/alphatester/Badge.svg`,
         description: 'Alpha Tester',
       }),
     }
