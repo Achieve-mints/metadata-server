@@ -4,6 +4,9 @@ import { ethers } from "ethers"
 
 import BaseTokenAbi from "./../../../abis/BaseToken.json";
 
+// used to make local testing easier
+const LOCAL_TEST_MODE = false;
+
 /*
  * Overview:
  *
@@ -29,9 +32,10 @@ interface MetadataResult {
 interface ChainDict {
   [key: string]: string;
 }
+const testmode_chains = (url: string) => LOCAL_TEST_MODE ? 'http://127.0.0.1:8545' : url;
 const chains: ChainDict = {
-  43113: 'https://api.avax-test.network/ext/bc/C/rpc',
-  10101: 'https://io.gogopool.com',
+  43113: testmode_chains('https://api.avax-test.network/ext/bc/C/rpc'),
+  10101: testmode_chains('https://io.gogopool.com'),
 };
 
 /*
@@ -53,10 +57,11 @@ const providers: ProviderDict = Object.fromEntries(
 interface ContractDict {
   [key: string]: ethers.Contract;
 }
+const testmode_contracts = (addr: string) => LOCAL_TEST_MODE ? '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0' : addr;
 const contracts: ContractDict = Object.fromEntries(
   Object.entries({
-    43113: '0x0587CfC662555f0a01Ba07C6b44B73C88008309a',
-    10101: '0xa6421E906a749B357Da4C10aEB0d8d588939862C',
+    43113: testmode_contracts('0x0587CfC662555f0a01Ba07C6b44B73C88008309a'),
+    10101: testmode_contracts('0xa6421E906a749B357Da4C10aEB0d8d588939862C'),
   })
     .map(([id, addr]: [string, string]) =>
       [id, new ethers.Contract(addr, BaseTokenAbi, providers[id])])
@@ -76,6 +81,7 @@ interface DecoderDict {
     };
   };
 }
+// TODO add testmode_decoders
 const decoders: DecoderDict = {
   43113: {
     // ExampleToken
