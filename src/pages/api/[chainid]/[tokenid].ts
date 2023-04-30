@@ -110,7 +110,16 @@ const decoders: DecoderDict = {
         image: `https://metadata.achievemint.io/alphatester/Badge.svg`,
         description: 'Alpha Tester',
       }),
-    }
+    },
+    // ChiknMerch
+    '0x788bf736231a195E7a704C5469c61b2961DF3472': {
+      abi: ['string'],
+      json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => ({
+        name: `Chikn Merch`,
+        image: `https://metadata.achievemint.io/chiknmerch/chikn.png`,
+        description: 'Chikn Merch',
+      }),
+    },
   }
 }
 
