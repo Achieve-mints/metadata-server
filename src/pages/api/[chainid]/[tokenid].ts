@@ -113,7 +113,7 @@ const decoders: DecoderDict = {
       abi: [],
       json: async (chainid: string, tokenid: string, decoded: ethers.utils.Result) => ({
         name: `Alpha Tester`,
-        image: `https://metadata.achievemint.io/alphatester/Badge.svg`,
+        image: `https://metadata.achievemint.io/alphatester/alphatester.png`,
         description: 'Alpha Tester',
       }),
     },
